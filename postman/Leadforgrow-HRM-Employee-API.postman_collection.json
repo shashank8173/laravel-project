@@ -1,0 +1,121 @@
+{
+  "info": {
+    "name": "Leadforgrow HRM Employee API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Import into Postman. Set collection variables base_url and api_token."
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost/hrmpulse-laravel/public/api/v1" },
+    { "key": "api_token", "value": "hrm_paste_token_here" },
+    { "key": "employee_id", "value": "1" },
+    { "key": "connector_secret", "value": "whsec_paste_from_developer_connectors" },
+    { "key": "connector_slug", "value": "main" }
+  ],
+  "item": [
+    {
+      "name": "Health (no auth)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{base_url}}/health"
+      }
+    },
+    {
+      "name": "Connector webhook (generic dynamic JSON)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "X-Connector-Secret", "value": "{{connector_secret}}" },
+          { "key": "Accept", "value": "application/json" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"employees\": [{\n    \"employee_id\": \"EXT-1001\",\n    \"first_name\": \"Neha\",\n    \"last_name\": \"Kapoor\",\n    \"email\": \"neha.kapoor@example.com\",\n    \"phone\": \"9876501234\",\n    \"department\": \"Sales\",\n    \"designation\": \"Executive\",\n    \"date_of_joining\": \"2024-04-01\"\n  }]\n}"
+        },
+        "url": "{{base_url}}/connectors/{{connector_slug}}/webhook"
+      }
+    },
+    {
+      "name": "List employees",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{api_token}}" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": "{{base_url}}/employees?per_page=10"
+      }
+    },
+    {
+      "name": "Get employee",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{api_token}}" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": "{{base_url}}/employees/{{employee_id}}"
+      }
+    },
+    {
+      "name": "Create employee",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{api_token}}" },
+          { "key": "Accept", "value": "application/json" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fname\": \"Asha\",\n  \"lname\": \"Verma\",\n  \"office_email\": \"asha.verma@example.com\",\n  \"email\": \"asha.personal@example.com\",\n  \"mobile1\": \"9876543210\",\n  \"emp_id\": \"EMP9001\",\n  \"external_id\": \"ZOHO-1001\",\n  \"department\": \"HR\",\n  \"designation\": \"Executive\",\n  \"job_title\": \"HR Executive\",\n  \"doj\": \"2024-06-01\",\n  \"salary\": \"45000\",\n  \"password\": \"Welcome@123\",\n  \"role\": \"user\"\n}"
+        },
+        "url": "{{base_url}}/employees"
+      }
+    },
+    {
+      "name": "Upsert employee (recommended for sync)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{api_token}}" },
+          { "key": "Accept", "value": "application/json" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"external_id\": \"ZOHO-1001\",\n  \"fname\": \"Asha\",\n  \"lname\": \"Verma\",\n  \"office_email\": \"asha.verma@example.com\",\n  \"mobile1\": \"9876543210\",\n  \"department\": \"HR\",\n  \"designation\": \"Executive\",\n  \"job_title\": \"HR Executive Updated\",\n  \"salary\": \"48000\"\n}"
+        },
+        "url": "{{base_url}}/employees/upsert"
+      }
+    },
+    {
+      "name": "Update employee",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{api_token}}" },
+          { "key": "Accept", "value": "application/json" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"job_title\": \"Senior HR Executive\",\n  \"mobile1\": \"9988776655\"\n}"
+        },
+        "url": "{{base_url}}/employees/{{employee_id}}"
+      }
+    },
+    {
+      "name": "Archive employee",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{api_token}}" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": "{{base_url}}/employees/{{employee_id}}"
+      }
+    }
+  ]
+}

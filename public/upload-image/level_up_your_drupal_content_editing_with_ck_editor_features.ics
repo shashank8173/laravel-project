@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:https://streamyard.com/StreamYard
+BEGIN:VEVENT
+UID:VXWUT3kb5JNz@https://streamyard.com
+CLASS:PUBLIC
+DESCRIPTION:Unlock exclusive insights that will transform your Drupal content creation process! \nJoin the CKEditor team for a deep dive into powerful Drupal plugins, must-have features, and workflow enhancements that will take your application's editing experience to the next level.\nWhether you're just getting started with CKEditor or looking to maximize its full potential, this webinar is designed to help you improve your Drupal projects with ease.\n\nWhat You'll Learn:\n- Seamless Integration: How to integrate CKEditor's free plugins into your Drupal application\n- Advanced Editing Tools: Steps to enable advanced premium plugins to enhance content editing\n- New Game-Changing Features: Discover new CKEditor features that will improve your content workflow\n\nSpeakers:\nMeet our expert panel:\n- Vadim Smirnov –  Developer Advocate at CKEditor\n- Charles Gantt – Technical Content Creator at CKEditor\n- Wojtek Kukowski - Software Engineer at CKEditor, Drupal Modules team\n\nFAQ:\n- Do I need to download any software to watch the webinar? No downloads are required. Simply register, and you’ll be able to watch the webinar directly from your browser using Streamyard.\n- Who should attend? Developers, content product owners, and anyone looking to improve their Drupal content creation process.\n- Will there be a Q&A session? Yes. The webinar will include a live Q&A session to answer your questions.\n
+DTSTAMP;VALUE=DATE-TIME:20241003T144640
+DTSTART;VALUE=DATE-TIME:20241016T203000
+DTEND;VALUE=DATE-TIME:20241016T213000
+LOCATION:https://streamyard.com/watch/VXWUT3kb5JNz?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZWdpc3RyYXRpb25JZCI6IjI3ZDY2ODJiLTU5MGMtNGQ2NC1iY2YyLWJjZmI0MjRiMzdkMiIsIndlYmluYXJJZCI6IlZYV1VUM2tiNUpOeiIsImlhdCI6MTcyNzk0NzAwMX0.CYk_x3CStUobDNyEReR4MfsQHYXfgOd16HtJzCzDksw
+URL:https://streamyard.com/watch/VXWUT3kb5JNz?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZWdpc3RyYXRpb25JZCI6IjI3ZDY2ODJiLTU5MGMtNGQ2NC1iY2YyLWJjZmI0MjRiMzdkMiIsIndlYmluYXJJZCI6IlZYV1VUM2tiNUpOeiIsImlhdCI6MTcyNzk0NzAwMX0.CYk_x3CStUobDNyEReR4MfsQHYXfgOd16HtJzCzDksw
+SUMMARY;LANGUAGE=en-us:Level Up Your Drupal Content Editing with CKEditor Features
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

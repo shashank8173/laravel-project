@@ -1,0 +1,161 @@
+/* Click-to-open rich editor shell + content display */
+.hrm-rich-shell {
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 12px;
+    background: var(--card, #fff);
+    min-height: 96px;
+    padding: .85rem 1rem;
+    cursor: text;
+    color: var(--ink, #172033);
+    transition: border-color .15s ease, box-shadow .15s ease;
+    position: relative;
+}
+.hrm-rich-shell:hover,
+.hrm-rich-shell:focus {
+    border-color: #ff9b44;
+    box-shadow: 0 0 0 3px rgba(255, 155, 68, .12);
+    outline: none;
+}
+.hrm-rich-shell.is-empty {
+    color: #98a2b3;
+}
+.hrm-rich-shell .hrm-rich-hint {
+    position: absolute;
+    right: .75rem;
+    top: .65rem;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: #98a2b3;
+    background: #f8fafc;
+    border: 1px solid #e8eef5;
+    border-radius: 999px;
+    padding: .15rem .55rem;
+    pointer-events: none;
+}
+.hrm-rich-shell .hrm-rich-preview {
+    font-size: .92rem;
+    line-height: 1.5;
+    padding-right: 5.5rem;
+    max-height: 140px;
+    overflow: hidden;
+}
+.hrm-rich-shell .hrm-rich-preview p { margin: 0 0 .4rem; }
+.hrm-rich-shell .hrm-rich-preview p:last-child { margin-bottom: 0; }
+
+textarea.hrm-rich-source {
+    display: none !important;
+}
+
+/* Parent panels often use overflow:hidden — that clips Summernote dropdowns */
+.pj-panel:has(.note-editor),
+.pj-panel:has(.hrm-rich-shell),
+.cd-panel:has(.note-editor),
+.cd-panel:has(.hrm-rich-shell),
+.ast-panel:has(.note-editor),
+[class*="-panel"]:has(.note-editor),
+[class*="-panel"]:has(.hrm-rich-shell),
+.modal-content:has(.note-editor),
+.modal-body:has(.note-editor),
+.card:has(.note-editor) {
+    overflow: visible !important;
+}
+
+/* ---------- Summernote-lite (standalone) + Bootstrap 5 coexistence ---------- */
+.note-editor.note-frame {
+    border: 1px solid var(--border, #e5e7eb) !important;
+    border-radius: 12px !important;
+    overflow: visible !important;
+    background: #fff;
+}
+.note-editor .note-toolbar {
+    background: #fafbfd;
+    border-bottom: 1px solid #e8eef5;
+    padding: .35rem .45rem;
+    overflow: visible !important;
+    position: relative;
+    z-index: 40;
+}
+.note-editor .note-editing-area {
+    overflow: auto;
+    position: relative;
+    z-index: 1;
+}
+.note-editor .note-statusbar {
+    background: #fafbfd;
+    border-radius: 0 0 12px 12px;
+}
+.note-editor.note-frame.fullscreen {
+    z-index: 2000 !important;
+}
+.note-editable {
+    background: #fff !important;
+    color: var(--ink, #172033) !important;
+}
+
+/* Bootstrap 5 adds a second caret — remove ONLY that pseudo caret */
+.note-editor .dropdown-toggle::after,
+.note-popover .dropdown-toggle::after {
+    display: none !important;
+    border: 0 !important;
+    content: none !important;
+    margin: 0 !important;
+}
+
+/*
+ * Bootstrap 5 sets .dropdown-menu { display:none } and only shows .show.
+ * Summernote-lite toggles parent .open instead — force menus visible when open.
+ */
+.note-editor .note-dropdown-menu,
+.note-popover .dropdown-menu {
+    z-index: 2055 !important;
+    box-sizing: content-box;
+}
+.note-editor .note-btn-group.open > .note-dropdown-menu,
+.note-editor .note-btn-group.open .note-dropdown-menu,
+.note-editor .note-btn-group.open > .dropdown-menu,
+.note-editor .open > .note-dropdown-menu,
+.note-editor .open > .dropdown-menu,
+.note-editor .note-dropdown-menu.open,
+.note-popover.open > .dropdown-menu,
+.note-popover .dropdown-menu.show {
+    display: block !important;
+}
+
+.note-editor .note-btn {
+    box-shadow: none !important;
+}
+.note-editor .note-btn-group {
+    position: relative;
+}
+
+/* Color / style palettes */
+.note-editor .note-color-palette {
+    line-height: 1;
+}
+.note-editor .note-palette {
+    display: inline-block;
+    margin: 0;
+}
+
+/* Don't let global link colors restyle toolbar */
+.note-toolbar a,
+.note-editor .note-btn {
+    text-decoration: none !important;
+}
+
+.note-modal .modal-dialog {
+    z-index: 2060;
+}
+
+.hrm-rich-content {
+    color: #344054;
+    line-height: 1.55;
+    word-break: break-word;
+}
+.hrm-rich-content p { margin: 0 0 .5rem; }
+.hrm-rich-content p:last-child { margin-bottom: 0; }
+.hrm-rich-content ul, .hrm-rich-content ol { margin: 0 0 .5rem 1.1rem; padding: 0; }
+.hrm-rich-content img { max-width: 100%; height: auto; border-radius: 8px; }
+.hrm-rich-content a { color: #2563eb; }
