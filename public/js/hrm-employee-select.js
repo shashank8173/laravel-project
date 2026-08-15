@@ -179,9 +179,8 @@
 
         document.addEventListener('click', function (e) {
             if (!self.open) return;
-            if (!self.wrap.contains(e.target)) {
-                self.setOpen(false);
-            }
+            if (self.wrap.contains(e.target) || self.panel.contains(e.target)) return;
+            self.setOpen(false);
         });
 
         document.addEventListener('keydown', function (e) {
@@ -190,20 +189,64 @@
             }
         });
 
+        window.addEventListener('resize', function () {
+            if (self.open) self.positionPanel();
+        });
+        window.addEventListener('scroll', function () {
+            if (self.open) self.positionPanel();
+        }, true);
+
         this.select.addEventListener('change', function () {
             self.syncFromSelect();
         });
+    };
+
+    EmployeePicker.prototype.positionPanel = function () {
+        var rect = this.toggle.getBoundingClientRect();
+        var width = Math.max(rect.width, 280);
+        var spaceBelow = window.innerHeight - rect.bottom;
+        var spaceAbove = rect.top;
+        var preferDropup = spaceBelow < 340 && spaceAbove > spaceBelow;
+
+        this.panel.classList.add('is-fixed');
+        this.panel.classList.toggle('is-dropup', preferDropup);
+        this.panel.style.width = width + 'px';
+        this.panel.style.left = Math.min(rect.left, window.innerWidth - width - 12) + 'px';
+
+        if (preferDropup) {
+            this.panel.style.top = 'auto';
+            this.panel.style.bottom = (window.innerHeight - rect.top + 4) + 'px';
+            this.panel.style.maxHeight = Math.min(420, Math.max(200, spaceAbove - 16)) + 'px';
+        } else {
+            this.panel.style.bottom = 'auto';
+            this.panel.style.top = (rect.bottom + 4) + 'px';
+            this.panel.style.maxHeight = Math.min(420, Math.max(200, spaceBelow - 16)) + 'px';
+        }
+
+        var listMax = Math.max(140, (parseFloat(this.panel.style.maxHeight) || 320) - 110);
+        this.listEl.style.maxHeight = listMax + 'px';
     };
 
     EmployeePicker.prototype.setOpen = function (open) {
         var self = this;
         this.open = !!open;
         this.wrap.classList.toggle('is-open', this.open);
-        if (!this.open) return;
 
-        var rect = this.toggle.getBoundingClientRect();
-        var spaceBelow = window.innerHeight - rect.bottom;
-        this.panel.classList.toggle('is-dropup', spaceBelow < 320 && rect.top > spaceBelow);
+        if (!this.open) {
+            this.panel.classList.remove('is-fixed', 'is-dropup');
+            this.panel.style.cssText = '';
+            this.listEl.style.maxHeight = '';
+            if (this.panel.parentNode !== this.wrap) {
+                this.wrap.appendChild(this.panel);
+            }
+            return;
+        }
+
+        // Portal to body so overflow:hidden parents cannot clip the list
+        if (this.panel.parentNode !== document.body) {
+            document.body.appendChild(this.panel);
+        }
+        this.positionPanel();
 
         loadFilters().then(function (filters) {
             self.fillFilterSelects(filters);
@@ -307,7 +350,7 @@
                 ].join(' ').toLowerCase();
                 return hay.indexOf(q) !== -1;
             });
-            this.renderList(filtered.slice(0, 80));
+            this.renderList(filtered.slice(0, 200));
             return;
         }
 

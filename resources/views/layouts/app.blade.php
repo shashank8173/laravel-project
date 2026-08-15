@@ -30,7 +30,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css" rel="stylesheet">
     <link href="{{ asset('css/hrm-rich-editor.css') }}?v=20260815d" rel="stylesheet">
-    <link href="{{ asset('css/hrm-employee-select.css') }}?v=20260815a" rel="stylesheet">
+    <link href="{{ asset('css/hrm-employee-select.css') }}?v=20260815b" rel="stylesheet">
     <style>
         :root,
         html[data-theme="light"] {
@@ -972,7 +972,7 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"></script>
 <script src="{{ asset('js/hrm-rich-editor.js') }}?v=20260815d"></script>
-<script src="{{ asset('js/hrm-employee-select.js') }}?v=20260815a"></script>
+<script src="{{ asset('js/hrm-employee-select.js') }}?v=20260815b"></script>
 <script>
 (function () {
     const shell = document.querySelector('.app-shell');

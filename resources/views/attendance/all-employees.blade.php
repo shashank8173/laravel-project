@@ -37,12 +37,13 @@
     }
 
     .att-wrap .att-panel {
-        background:var(--card); border:1px solid var(--line); border-radius:18px; overflow:hidden; margin-bottom:1rem;
+        background:var(--card); border:1px solid var(--line); border-radius:18px; overflow:visible; margin-bottom:1rem;
     }
     .att-wrap .att-panel-head {
         display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;
         padding:1rem 1.15rem; border-bottom:1px solid var(--line);
         background:var(--panel-head);
+        border-radius:18px 18px 0 0;
     }
     .att-wrap .att-panel-head h5 { margin:0; font-weight:750; color:var(--ink); font-size:1rem; }
     .att-wrap .att-panel-head .sub { display:block; font-size:.78rem; color:var(--muted); margin-top:.15rem; }
@@ -345,7 +346,8 @@
             <div class="col-md-4">
                 <label class="form-label" for="employee">Employee</label>
                 <select name="employee_id" id="employee" class="form-select js-employee-select" required
-                        data-placeholder="Search employee by name, department or designation…">
+                        data-placeholder="Search employee by name, department or designation…"
+                        data-ajax="0">
                     <option value="">Select employee</option>
                     @foreach($employees as $employee)
                         <option
