@@ -1,67 +1,226 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Leadforgrow HRM
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Laravel-based Human Resource Management system for **Leadforgrow** — employees, attendance, leaves, payroll helpers, projects, chat, tickets, assets, expenses, and compliance workflows in one app.
 
-## About Laravel
+**App URL (local):** `http://localhost/hrmpulse-laravel/public`
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Stack
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+| Layer | Technology |
+|--------|------------|
+| Framework | Laravel 11 (PHP 8.2+) |
+| Database | MySQL (`hrm_*` tables) |
+| Auth | Session auth against `hrm_employee` |
+| UI | Blade + Bootstrap 5 + Font Awesome |
+| Mail | PHPMailer via in-app SMTP settings (`HrmMailer`) |
+| PDF | barryvdh/laravel-dompdf |
+| Chat calls | WebRTC (STUN/TURN configurable in `.env`) |
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Features
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### People & organization
+- Employee master (profile, family, education, photo)
+- Departments & designations
+- Reporting managers (primary / secondary)
+- Roles (`user`, `admin`, `super admin`)
+- Archived employees
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Daily work
+- Punch in / out attendance + admin upload / reports
+- Leave apply & admin approval
+- Holidays calendar
+- Company policies & company documents
 
-## Laravel Sponsors
+### Project management
+- Projects with PM, team assign / reassign
+- **Project tasks** (assign, status flow, notes; completed locks for employees)
+- **Daily work notes** (time range, status, progress %)
+- Activity timeline & assignment history
+- Side-by-side task / notes panels with internal scroll
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Workplace
+- Expenses (employee + admin)
+- Tickets (raise / manage / categories)
+- Chat room (1:1 + groups) and WebRTC calls
+- Asset inventory & assignments
+- Resignation + notice-period steps
+- POSH guidelines / committee + harassment complaints
 
-### Premium Partners
+### Communication
+- Announcements (email + **in-app bell / My Notifications**)
+- Employee of the Month
+- Searchable employee picker (name / department / designation)
+- Notification sound toggle
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Admin / developer
+- Salary & advance salary helpers
+- Analytics dashboard
+- Branding, email, greeting, leave settings
+- Cron / celebration mail tools
+- API tokens (where enabled)
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Roles (high level)
 
-## Code of Conduct
+| Role | Access |
+|------|--------|
+| **User** | Own dashboard, leaves, attendance, projects (assigned), expenses, tickets, chat, profile |
+| **Admin / HR** | People ops, attendance admin, leaves admin, announcements, tickets, resignations, assets, salary tools |
+| **Super Admin** | Admin plus developer tools, roles, deeper settings |
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Authorization uses employee helpers (`isAdmin()`, `isSuperAdmin()`, policies) — not Spatie roles.
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Requirements
+
+- PHP **8.2+** with extensions: `pdo_mysql`, `mbstring`, `openssl`, `tokenizer`, `xml`, `ctype`, `json`, `bcmath`, `fileinfo`, `gd` (recommended)
+- Composer 2.x
+- MySQL 5.7+ / 8.x (or MariaDB)
+- Apache/Nginx **or** XAMPP (project lives under `htdocs`)
+
+---
+
+## Setup
+
+### 1. Clone / place project
+
+```text
+C:\xampp\htdocs\hrmpulse-laravel
+```
+
+### 2. Install dependencies
+
+```bash
+cd C:\xampp\htdocs\hrmpulse-laravel
+composer install
+```
+
+### 3. Environment
+
+```bash
+copy .env.example .env
+php artisan key:generate
+```
+
+Configure MySQL in `.env`:
+
+```env
+APP_NAME="Leadforgrow HRM"
+APP_URL=http://localhost/hrmpulse-laravel/public
+APP_TIMEZONE=Asia/Kolkata
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_hrm_database
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### 4. Database
+
+Point `DB_DATABASE` at your existing HRM database (legacy `hrm_*` schema), then run any pending Laravel migrations:
+
+```bash
+php artisan migrate
+```
+
+Check status:
+
+```text
+/migration-status
+```
+
+(while logged in)
+
+### 5. Storage link (uploads / photos)
+
+```bash
+php artisan storage:link
+```
+
+### 6. Run
+
+**XAMPP:** start Apache + MySQL, open:
+
+```text
+http://localhost/hrmpulse-laravel/public/login
+```
+
+**Or PHP built-in server:**
+
+```bash
+php artisan serve
+```
+
+Then open `http://127.0.0.1:8000`.
+
+---
+
+## Important config notes
+
+- **Login** uses `hrm_employee` (office email / credentials as implemented in `LoginController`).
+- **Mail** is driven by DB email settings + `App\Services\HrmMailer` (not only Laravel `MAIL_*`).
+- **In-app notifications** table: `hrm_employee_notifications` (bell + `/my-notifications`).
+- **Employee search API:** `/lookups/employees`, `/lookups/employee-filters`.
+- **Themes:** light / dark / dark-blue (per user).
+- **WebRTC** (chat calls): see `WEBRTC_*` keys in `.env.example`.
+
+---
+
+## Project layout (useful paths)
+
+```text
+app/
+  Http/Controllers/     # Feature controllers (Employee, Leave, Project, Chat, …)
+  Models/               # Eloquent models mapped to hrm_* tables
+  Policies/             # Project / task authorization
+  Services/             # HrmMailer, ProjectService, EmployeeNotificationService, …
+resources/views/        # Blade UI (layouts, dashboards, modules)
+routes/web.php          # All web routes
+public/                 # Web root (css/js assets, index.php)
+database/migrations/    # Incremental schema for new modules
+```
+
+---
+
+## Common URLs
+
+| Page | Path |
+|------|------|
+| Login | `/login` |
+| Employee dashboard | `/dashboard` |
+| Admin dashboard | `/admin/dashboard` |
+| Projects | `/projects` |
+| My notifications | `/my-notifications` |
+| Announcements | `/activities` |
+| Chat | `/chat` |
+| Attendance (self) | `/attendance` |
+
+---
+
+## Development tips
+
+- Prefer `php artisan migrate` for new tables; do not overwrite production HRM data casually.
+- Clear caches after config changes:
+
+```bash
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
+```
+
+- Rich text fields use Summernote (`js-rich-editor`).
+- Employee selects use `x-employee-select` / `.js-employee-select` (search + department + designation filters).
+
+---
 
 ## License
 
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Internal Leadforgrow HRM application. Framework portions follow Laravel’s MIT license; application code and branding belong to the project owner.
